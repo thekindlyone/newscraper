@@ -1,8 +1,12 @@
 # Newscraper
 
+## Installation
 
+1. git clone
+2. create virtualenv
+3. pip install -r requirements.txt
 
-
+## USAGE
 
         $ python newscrape.py --help
         usage: newscrape.py [-h] [-o OUTPUT] [-s SITES]
