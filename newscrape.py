@@ -17,6 +17,7 @@ scribe_q = Queue()
 def crawler(args):
     try:
         site,keyword,newer_than,total = args
+        print site,keyword,newer_than,total
         print "started {} {}".format(site,keyword)
         scraper=scrapers[site]()
         if not newer_than and not total:
@@ -37,8 +38,9 @@ def crawler(args):
                     return '{} {} Exit Clause: Date'.format(site,keyword)
                 scribe_q.put(item)
                 t+=1
-            if total and t>=total:
-                break
+                # print 'site {} ,t  {}, total {}, total-t {},total<t {}'.format(site,t,total,total-t,total<t)
+                if total and t>=total:
+                    return '{} {} Exit Clause: {}(total) records reached'.format(site,keyword,total)
             
             url=handle(lambda: scraper.next_page(soup))
             if not url:
@@ -98,7 +100,7 @@ newscrape.py "election,national herald"
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-d','--daysold',help='Max days old news to scrape',type=int)
     group.add_argument('-D','--date',help='Exact date of oldest news to scrape (dd/mm/yyyy)')
-    group.add_argument('-t','--total',help='total articles to be extracted from each site')
+    group.add_argument('-t','--total',help='total articles to be extracted from each site',type=int)
     
     parser.add_argument('-p','--poolsize',help='specify no. of concurrent greenlets',type=int,default=5)
 
