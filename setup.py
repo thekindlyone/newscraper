@@ -1,11 +1,6 @@
 # from distutils.core import setup
 from setuptools import setup
-import os
-try:
-    import pypandoc
-    description=pypandoc.convert('readme.md','rst')
-except:
-    description=''
+
 setup(
   name = 'newscraper',
   packages = ['newscraper'], # this must be the same as the name above
@@ -26,13 +21,12 @@ setup(
                    'six==1.10.0'],
   scripts=['bin/newscrape'],
   license='GNU GPL v2',
-  version = '0.1',
+  version = '0.2',
   description = 'Scrapes Indian news sites for news related to keywords',
-  long_description=description,
   author = 'thekindlyone',
   author_email = 'dodo.dodder@gmail.com',
   url = 'https://github.com/thekindlyone/newscraper', # use the URL to the github repo
-  download_url = 'https://github.com/peterldowns/mypackage/tarball/0.1', # I'll explain this in a second
+  download_url = 'https://github.com/thekindlyone/newscraper/tarball/0.2', # I'll explain this in a second
   keywords = ['indian', 'news', 'scraping'], # arbitrary keywords
   classifiers = [],
 )
