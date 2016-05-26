@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+from newscraper.newscrape import *
+
+
+def main():
+    parser=argparse.ArgumentParser(
+        description="Scrapes news article links from Indian news websites")    
+
+    parser.add_argument('keywords',help='''
+comma separated keywords to search for. eg:
+newscrape.py "election,national herald"
+        ''')
+
+    parser.add_argument('-o','--output',help='specify output file path. default= ./articles.csv',default='articles.csv')
+    
+    parser.add_argument(
+        '-s','--sites',
+        help='comma separated sites to scrape. available options: {}\n default: ALL'.format(','.join(scrapers.keys())))
+    
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('-d','--daysold',help='Max days old news to scrape',type=int)
+    group.add_argument('-D','--date',help='Exact date of oldest news to scrape (dd/mm/yyyy)')
+    group.add_argument('-t','--total',help='total articles to be extracted from each site',type=int)
+    
+    parser.add_argument('-p','--poolsize',help='specify no. of concurrent greenlets',type=int,default=5)
+
+
+    args=parser.parse_args()
+    newer_than = None
+
+    if args.daysold:
+        delta = timedelta(days=args.daysold)
+        newer_than=datetime.now()-delta
+    if args.date:
+        newer_than=datetime.strptime(args.date,'%d/%m/%Y')
+    
+    keywords=[k.strip() for k in args.keywords.split(',')]
+    if args.sites:
+        sites = [s.strip() for s in args.sites.split(',')]
+    else:
+        sites = scrapers.keys()
+
+    gevent.spawn(scribe,args.output)
+
+    if args.poolsize>15:
+        args.poolsize=15
+    pool=Pool(args.poolsize)
+    jobs = ([site,keyword,newer_than,args.total] for keyword,site in product(keywords,sites))
+    output = pool.map(crawler,jobs)
+    scribe_q.put('quit')
+    print '*'*20,"\nREPORT\n",'*'*20
+    for l in output:
+        print l
+
+if __name__ == '__main__':
+    main()
