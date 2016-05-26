@@ -6,12 +6,16 @@
 2. create virtualenv
 3. pip install -r requirements.txt
 
+or     
+
+1. pip install newscraper
+
 ## USAGE
 
-        $ python newscrape.py --help
-        usage: newscrape.py [-h] [-o OUTPUT] [-s SITES]
-                            [-d DAYSOLD | -D DATE | -t TOTAL] [-p POOLSIZE]
-                            keywords
+        $ newscrape --help
+        usage: newscrape [-h] [-o OUTPUT] [-s SITES] [-d DAYSOLD | -D DATE | -t TOTAL]
+                         [-p POOLSIZE]
+                         keywords
 
         Scrapes news article links from Indian news websites
 
@@ -33,3 +37,4 @@
                                 total articles to be extracted from each site
           -p POOLSIZE, --poolsize POOLSIZE
                                 specify no. of concurrent greenlets
+
