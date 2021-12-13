@@ -12,7 +12,7 @@ setup(
                    'greenlet==0.4.9',
                    'idna==2.0',
                    'ipaddress==1.0.15',
-                   'lxml==3.5.0',
+                   'lxml==4.6.5',
                    'ndg-httpsclient==0.4.0',
                    'pyasn1==0.1.9',
                    'pycparser==2.14',
