@@ -6,7 +6,7 @@ setup(
   packages = ['newscraper'], # this must be the same as the name above
   install_requires=['beautifulsoup4==4.4.1',
                    'cffi==1.4.1',
-                   'cryptography==1.1.2',
+                   'cryptography==3.3.2',
                    'enum34==1.1.1',
                    'gevent==1.0.2',
                    'greenlet==0.4.9',
