@@ -17,7 +17,7 @@ setup(
                    'pyasn1==0.1.9',
                    'pycparser==2.14',
                    'pyOpenSSL==0.15.1',
-                   'requests==2.9.0',
+                   'requests==2.20.0',
                    'six==1.10.0'],
   scripts=['bin/newscrape'],
   license='GNU GPL v2',
